@@ -8,15 +8,11 @@ class Color:
         self.g = g
         self.b = b
 
-    def __mul__(self, other: float):
-        return Color(self.r * other,
-                     self.g * other,
-                     self.b * other)
-
-    def __add__(self, other: Self):
-        return Color(self.r + other.r,
-                     self.g + other.g,
-                     self.b + other.b)
+    def blend(self, other: Self, ratio: float):
+        r = self.r * ratio + other.r * (1 - ratio)
+        g = self.g * ratio + other.g * (1 - ratio)
+        b = self.b * ratio + other.b * (1 - ratio)
+        return Color(r, g, b)
 
 class Colors:
     RED   = Color(1, 0, 0)
@@ -46,8 +42,8 @@ class Buffer:
         L = max(abs(x2 - x1), abs(y2 - y1)) + 1
         x, y = float(x1), float(y1)
         for i in range(L):
-            percent = i / L
-            color = p2.color * percent + p1.color * (1 - percent)
+            percent = 1.0 - i / L
+            color = p1.color.blend(p2.color, percent)
             self.pixel(int(x), int(y), color)
             x += (x2 - x1) / L
             y += (y2 - y1) / L
