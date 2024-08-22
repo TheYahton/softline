@@ -8,11 +8,6 @@ class Color:
         self.g = g
         self.b = b
 
-    def as_tuple(self) -> tuple[int, int, int]:
-        return (int(self.r*255),
-                int(self.g*255),
-                int(self.b*255))
-
     def __mul__(self, other: float):
         return Color(self.r * other,
                      self.g * other,
@@ -31,12 +26,12 @@ class Colors:
     BLACK = Color(0, 0, 0)
 
 class Point:
-    def __init__(self, position: tuple[int, int], color: Color = Colors.WHITE):
+    def __init__(self, position: tuple[int, int], color: Color = Colors.WHITE) -> None:
         self.pos = position
         self.color = color
 
 class Buffer:
-    def __init__(self, width: int, height: int):
+    def __init__(self, width: int, height: int) -> None:
         self.body = [Colors.BLACK] * width * height
         self.width = width
         self.height = height
@@ -62,12 +57,17 @@ class Buffer:
         self.dda(p2, p3)
         self.dda(p3, p1)
 
+class ScreenBuffer(Buffer):
+    def __init__(self):
+        width, height = get_terminal_size()
+        super().__init__(width, height)
+
     def print(self):
         print("".join([f"\x1b[38;2;{int(color.r*255)};{int(color.g*255)};{int(color.b*255)}m█\x1b[0m" for color in self.body]))
 
 if __name__ == "__main__":
-    width, height = get_terminal_size()
-    buffer = Buffer(width, height)
+    buffer = ScreenBuffer()
+    width, height = buffer.width, buffer.height
     p1 = Point((width//2, 4), Colors.RED)
     p2 = Point((width//2-width//3, 20), Colors.BLUE)
     p3 = Point((width//2+width//3, 20), Colors.GREEN)
