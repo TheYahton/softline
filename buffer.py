@@ -1,3 +1,4 @@
+from sys import stdout
 from os import get_terminal_size
 from typing import Self, Optional, List, cast
 
@@ -9,6 +10,9 @@ class Buffer:
         self.body = cast(List[Optional[Color]], [None] * width * height)
         self.width = width
         self.height = height
+
+    def fill(self, color: Color):
+        self.body = cast(List[Optional[Color]], [color] * self.width * self.height)
 
     def blit(self, other: Self):
         for j in range(other.height):
@@ -29,7 +33,7 @@ class ScreenBuffer(Buffer):
         super().__init__(width, height)
 
     def print(self):
-        print("".join([f"\x1b[38;2;{int(color.r*255)};{int(color.g*255)};{int(color.b*255)}m█\x1b[0m" if color is not None else " " for color in self.body]))
+        stdout.write("".join([f"\x1b[38;2;{int(color.r*255)};{int(color.g*255)};{int(color.b*255)}m█\x1b[0m" if color is not None else " " for color in self.body]))
 
 
 
