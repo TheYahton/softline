@@ -14,6 +14,7 @@ class Color:
         b = self.b * ratio + other.b * (1 - ratio)
         return Color(r, g, b)
 
+
 class Colors:
     RED   = Color(1, 0, 0)
     GREEN = Color(0, 1, 0)
@@ -21,10 +22,12 @@ class Colors:
     WHITE = Color(1, 1, 1)
     BLACK = Color(0, 0, 0)
 
+
 class Point:
     def __init__(self, position: tuple[int, int], color: Color = Colors.WHITE) -> None:
         self.pos = position
         self.color = color
+
 
 class Buffer:
     def __init__(self, width: int, height: int) -> None:
@@ -53,6 +56,7 @@ class Buffer:
         self.dda(p2, p3)
         self.dda(p3, p1)
 
+
 class ScreenBuffer(Buffer):
     def __init__(self):
         width, height = get_terminal_size()
@@ -61,12 +65,13 @@ class ScreenBuffer(Buffer):
     def print(self):
         print("".join([f"\x1b[38;2;{int(color.r*255)};{int(color.g*255)};{int(color.b*255)}m█\x1b[0m" for color in self.body]))
 
+
 if __name__ == "__main__":
     buffer = ScreenBuffer()
     width, height = buffer.width, buffer.height
-    p1 = Point((width//2, 4), Colors.RED)
-    p2 = Point((width//2-width//3, 20), Colors.BLUE)
-    p3 = Point((width//2+width//3, 20), Colors.GREEN)
+    p1 = Point((width // 2, 4), Colors.RED)
+    p2 = Point((width // 2 - width // 3, 20), Colors.BLUE)
+    p3 = Point((width // 2 + width // 3, 20), Colors.GREEN)
     buffer.triangle(p1, p2, p3)
     buffer.print()
 
