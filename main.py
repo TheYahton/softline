@@ -18,7 +18,7 @@ class Color:
                      self.g * other,
                      self.b * other)
 
-    def __add__(self, other):
+    def __add__(self, other: Self):
         return Color(self.r + other.r,
                      self.g + other.g,
                      self.b + other.b)
@@ -37,15 +37,14 @@ class Point:
 
 class Buffer:
     def __init__(self, width: int, height: int):
-        self.body = [" "] * width * height
+        self.body = [Colors.BLACK] * width * height
         self.width = width
         self.height = height
 
     def pixel(self, x: int, y: int, color: Color):
         if x < 0 or y < 0 or x >= self.width or y >= self.height:
             return
-        r, g, b = color.as_tuple()
-        self.body[x + y * self.width] = f"\x1b[38;2;{r};{g};{b}m█\x1b[0m"
+        self.body[x + y * self.width] = color
 
     def dda(self, p1: Point, p2: Point):
         x1, y1, x2, y2 = *p1.pos, *p2.pos
@@ -64,7 +63,7 @@ class Buffer:
         self.dda(p3, p1)
 
     def print(self):
-        print(*self.body, sep='')
+        print("".join([f"\x1b[38;2;{int(color.r*255)};{int(color.g*255)};{int(color.b*255)}m█\x1b[0m" for color in self.body]))
 
 if __name__ == "__main__":
     width, height = get_terminal_size()
