@@ -13,6 +13,9 @@ class Color:
         b = self.b * ratio + other.b * (1 - ratio)
         return Color(r, g, b)
 
+    def clone(self):
+        return Color(self.r, self.g, self.b)
+
 
 class Colors:
     RED   = Color(1, 0, 0)

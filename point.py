@@ -13,6 +13,9 @@ class Point2f:
         self.pos = pos
         self.color = color
 
+    def clone(self):
+        return Point2f(self.pos.clone(), self.color.clone())
+
 
 def transform(width: int, height: int, p: Point2f) -> Point2i:
     nx: int = int((p.pos.x + 1) / 2 * width)

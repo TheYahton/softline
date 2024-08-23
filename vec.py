@@ -29,3 +29,6 @@ class Vec2f:
         self.x *= scale
         self.y *= scale
 
+    def clone(self):
+        return Vec2f(self.x, self.y)
+
