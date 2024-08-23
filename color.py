@@ -23,3 +23,7 @@ class Colors:
     BLUE  = Color(0, 0, 1)
     WHITE = Color(1, 1, 1)
     BLACK = Color(0, 0, 0)
+
+    YELLOW = Color(1, 1, 0)
+    PURPLE = Color(1, 0, 1)
+    CYAN   = Color(0, 1, 1)
