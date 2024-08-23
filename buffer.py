@@ -3,6 +3,7 @@ from os import get_terminal_size
 from typing import Self, Optional, List, cast
 
 from color import Color, Colors
+from point import Point2i
 
 
 class Buffer:
@@ -25,6 +26,17 @@ class Buffer:
         if x < 0 or y < 0 or x >= self.width or y >= self.height:
             return
         self.body[x + y * self.width] = color
+
+    def dda(self, p1: Point2i, p2: Point2i):
+        x1, y1, x2, y2 = p1.pos.x, p1.pos.y, p2.pos.x, p2.pos.y
+        L = max(abs(x2 - x1), abs(y2 - y1)) + 1
+        x, y = float(x1), float(y1)
+        for i in range(L):
+            percent = 1.0 - i / L
+            color = p1.color.blend(p2.color, percent)
+            self.pixel(int(x), int(y), color)
+            x += (x2 - x1) / L
+            y += (y2 - y1) / L
 
 
 class ScreenBuffer(Buffer):
