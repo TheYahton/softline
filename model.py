@@ -9,6 +9,11 @@ class Triangle:
         self.p2 = p2
         self.p3 = p3
 
+    def rotate(self, theta: float):
+        self.p1.pos.rotate(theta)
+        self.p2.pos.rotate(theta)
+        self.p3.pos.rotate(theta)
+
     def get_transformed(self, width, height) -> tuple[Point2i, Point2i, Point2i]:
         return (transform(width, height, self.p1),
                 transform(width, height, self.p2),

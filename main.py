@@ -12,6 +12,7 @@ if __name__ == "__main__":
     p2 = Point2f(Vec2f(-1.0, -1.0), Colors.BLUE)
     p3 = Point2f(Vec2f(1.0, -1.0), Colors.GREEN)
     triangle = Triangle(p1, p2, p3)
+    triangle.rotate(1.0)
     triangle.draw(buffer)
     buffer.print()
 
