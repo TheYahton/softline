@@ -21,3 +21,11 @@ class Vec2f:
         self.x = rotated.x
         self.y = rotated.y
 
+    def scaled(self, scale: float):
+        return Vec2f(self.x * scale,
+                     self.y * scale)
+
+    def scale(self, scale: float):
+        self.x *= scale
+        self.y *= scale
+

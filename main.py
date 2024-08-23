@@ -1,3 +1,5 @@
+from time import sleep
+
 from color import Color, Colors
 from vec import Vec2f
 from point import Point2f
@@ -12,7 +14,11 @@ if __name__ == "__main__":
     p2 = Point2f(Vec2f(-1.0, -1.0), Colors.BLUE)
     p3 = Point2f(Vec2f(1.0, -1.0), Colors.GREEN)
     triangle = Triangle(p1, p2, p3)
-    triangle.rotate(1.0)
-    triangle.draw(buffer)
-    buffer.print()
+    triangle.scale(0.5)
+    while True:
+        buffer.clear()
+        triangle.rotate(0.1)
+        triangle.draw(buffer)
+        buffer.print()
+        sleep(1/60)
 

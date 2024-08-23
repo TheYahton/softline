@@ -14,6 +14,11 @@ class Triangle:
         self.p2.pos.rotate(theta)
         self.p3.pos.rotate(theta)
 
+    def scale(self, scale: float):
+        self.p1.pos.scale(scale)
+        self.p2.pos.scale(scale)
+        self.p3.pos.scale(scale)
+
     def get_transformed(self, width, height) -> tuple[Point2i, Point2i, Point2i]:
         return (transform(width, height, self.p1),
                 transform(width, height, self.p2),
