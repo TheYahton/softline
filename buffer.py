@@ -12,6 +12,9 @@ class Buffer:
         self.width = width
         self.height = height
 
+    def clear(self):
+        self.body = cast(List[Optional[Color]], [None] * self.width * self.height)
+
     def fill(self, color: Color):
         self.body = cast(List[Optional[Color]], [color] * self.width * self.height)
 
