@@ -1,5 +1,5 @@
 from color import Color, Colors
-from math import Vec2f
+from vec import Vec2f
 from point import Point2f
 from model import Triangle
 from buffer import ScreenBuffer

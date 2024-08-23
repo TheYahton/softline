@@ -1,3 +1,5 @@
+from math import sin
+
 
 class Vec2i:
     def __init__(self, x: int, y: int):

@@ -1,4 +1,4 @@
-from math import Vec2i
+from vec import Vec2i
 from point import Point2f, Point2i, transform
 from buffer import Buffer
 
