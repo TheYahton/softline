@@ -14,6 +14,6 @@ class Point2f:
 
 def transform(width: int, height: int, p: Point2f) -> Point2i:
     nx: int = int((p.pos.x + 1) / 2 * width)
-    ny: int = int((p.pos.y + 1) / 2 * height)
+    ny: int = height - int((p.pos.y + 1) / 2 * height)
     return Point2i(Vec2i(nx, ny), p.color)
 
