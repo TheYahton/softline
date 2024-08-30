@@ -6,6 +6,10 @@ class Vec2i:
         self.x = x
         self.y = y
 
+    def as_tuple(self) -> tuple[int, int]:
+        return (self.x, self.y)
+
+
 class Vec2f:
     def __init__(self, x: float, y: float):
         self.x = x
@@ -31,4 +35,11 @@ class Vec2f:
 
     def clone(self):
         return Vec2f(self.x, self.y)
+
+
+class Vec3f:
+    def __init__(self, x: float, y: float, z: float):
+        self.x = x
+        self.y = y
+        self.z = z
 

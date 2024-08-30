@@ -20,9 +20,9 @@ class Triangle:
         self.p3.pos.scale(scale)
 
     def get_transformed(self, width, height) -> tuple[Point2i, Point2i, Point2i]:
-        return (transform(width, height, self.p1),
-                transform(width, height, self.p2),
-                transform(width, height, self.p3))
+        return (transform(self.p1, width, height),
+                transform(self.p2, width, height),
+                transform(self.p3, width, height))
 
     def draw(self, outer: Buffer):
         width, height = outer.width, outer.height
