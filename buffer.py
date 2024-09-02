@@ -49,7 +49,7 @@ class ScreenBuffer(Buffer):
 
     def print(self):
         stdout.write("\033[1;1H")  # move cursor to (1,1)
-        stdout.write("".join([f"\x1b[38;2;{int(color.r*255)};{int(color.g*255)};{int(color.b*255)}m█\x1b[0m" if color is not None else " " for color in self.body]))
+        stdout.write("".join([f"\x1b[38;2;{int(color.r*255)};{int(color.g*255)};{int(color.b*255)}m█" if color is not None else " " for color in self.body]))
 
 
 
