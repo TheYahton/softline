@@ -1,4 +1,5 @@
 from vec import Vec2i
+from color import Colors
 from point import Point2f, Point2i, transform
 from buffer import Buffer
 
@@ -34,11 +35,11 @@ class Triangle:
         for j in range(height):
             for i in range(width):
                 start_color = buffer.body[i + j * width]
-                if start_color is not None:
+                if start_color != Colors.TRANSPARENT:
                     k = i + 1
-                    while k < width and (end_color := buffer.body[k + j * width]) is None:
+                    while k < width and (end_color := buffer.body[k + j * width]) is Colors.TRANSPARENT:
                         k += 1
-                    if end_color is not None:
+                    if end_color != Colors.TRANSPARENT:
                         p1 = Point2i(Vec2i(i, j), start_color)
                         p2 = Point2i(Vec2i(k, j), end_color)
                         buffer.dda(p1, p2)

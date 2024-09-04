@@ -19,7 +19,8 @@ from buffer import ScreenBuffer
 if __name__ == "__main__":
     buffer = ScreenBuffer()
     width, height = buffer.width, buffer.height
-    p1 = Point3f(Vec3f(-1.0, 1.0, 2.0), Colors.RED)
+    color = Color(1, 0, 0, .0)
+    p1 = Point3f(Vec3f(-1.0, 1.0, 2.0), color)
     p2 = Point3f(Vec3f(1.0, 1.0, 2.0), Colors.BLUE)
     p3 = Point3f(Vec3f(1.0, -1.0, 2.0), Colors.GREEN)
     p4 = Point3f(Vec3f(-1.0, -1.0, 2.0), Colors.BLUE)

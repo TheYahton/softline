@@ -8,22 +8,27 @@ from point import Point2i
 
 class Buffer:
     def __init__(self, width: int, height: int) -> None:
-        self.body = cast(List[Optional[Color]], [None] * width * height)
+        self.body = [Colors.TRANSPARENT] * width * height
         self.width = width
         self.height = height
 
     def clear(self):
-        self.body = cast(List[Optional[Color]], [None] * self.width * self.height)
+        self.fill(Colors.TRANSPARENT)
 
     def fill(self, color: Color):
-        self.body = cast(List[Optional[Color]], [color] * self.width * self.height)
+        self.body = [color] * self.width * self.height
 
     def blit(self, other: Self):
         for j in range(other.height):
             for i in range(other.width):
-                color = other.body[i + j * other.width]
-                if color is not None:
-                    self.pixel(i, j, color)
+                index = i + j * other.width
+                F = other.body[index]
+                A = F.a
+                B = self.body[index]
+                r = B.r * (1 - A) + F.r * A
+                b = B.b * (1 - A) + F.b * A
+                g = B.g * (1 - A) + F.g * A
+                self.body[index] = Color(r, g, b, 1)
 
     def pixel(self, x: int, y: int, color: Color):
         if x < 0 or y < 0 or x >= self.width or y >= self.height:
@@ -49,7 +54,11 @@ class ScreenBuffer(Buffer):
 
     def print(self):
         stdout.write("\033[1;1H")  # move cursor to (1,1)
-        stdout.write("".join([f"\x1b[38;2;{int(color.r*255)};{int(color.g*255)};{int(color.b*255)}m█" if color is not None else " " for color in self.body]))
+        output = []
+        for color in self.body:
+            r, g, b = color.rgb()
+            output.append(f"\x1b[38;2;{r};{g};{b}m█")
+        stdout.write("".join(output))
 
 
 
