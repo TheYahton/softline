@@ -1,6 +1,10 @@
 from typing import Self
 
 
+def clamp(vmin: int, vmax: int, value: int) -> int:
+    return max(min(value, vmax), vmin)
+
+
 class Color:
     def __init__(self, r: float, g: float, b: float, a: float = 1.0):
         self.r = r
@@ -16,9 +20,9 @@ class Color:
         return Color(r, g, b, a)
     
     def rgb(self) -> tuple[int, int, int]:
-        r = int(self.a * self.r * 255)
-        g = int(self.a * self.g * 255)
-        b = int(self.a * self.b * 255)
+        r = clamp(0, 255, int(self.a * self.r * 255))
+        g = clamp(0, 255, int(self.a * self.g * 255))
+        b = clamp(0, 255, int(self.a * self.b * 255))
         return r, g, b
 
     def clone(self):
