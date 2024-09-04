@@ -28,7 +28,7 @@ class Buffer:
                 r = B.r * (1 - A) + F.r * A
                 b = B.b * (1 - A) + F.b * A
                 g = B.g * (1 - A) + F.g * A
-                self.body[index] = Color(r, g, b, 1)
+                self.body[index] = Color(r, g, b)
 
     def pixel(self, x: int, y: int, color: Color):
         if x < 0 or y < 0 or x >= self.width or y >= self.height:

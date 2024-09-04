@@ -2,7 +2,7 @@ from typing import Self
 
 
 class Color:
-    def __init__(self, r: float, g: float, b: float, a: float):
+    def __init__(self, r: float, g: float, b: float, a: float = 1.0):
         self.r = r
         self.g = g
         self.b = b
@@ -26,14 +26,14 @@ class Color:
 
 
 class Colors:
-    RED   = Color(1, 0, 0, 1)
-    GREEN = Color(0, 1, 0, 1)
-    BLUE  = Color(0, 0, 1, 1)
-    WHITE = Color(1, 1, 1, 1)
-    BLACK = Color(0, 0, 0, 1)
+    RED   = Color(1, 0, 0)
+    GREEN = Color(0, 1, 0)
+    BLUE  = Color(0, 0, 1)
+    WHITE = Color(1, 1, 1)
+    BLACK = Color(0, 0, 0)
 
-    YELLOW = Color(1, 1, 0, 1)
-    PURPLE = Color(1, 0, 1, 1)
-    CYAN   = Color(0, 1, 1, 1)
+    YELLOW = Color(1, 1, 0)
+    PURPLE = Color(1, 0, 1)
+    CYAN   = Color(0, 1, 1)
 
     TRANSPARENT = Color(0, 0, 0, 0)
