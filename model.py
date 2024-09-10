@@ -5,26 +5,25 @@ from buffer import Buffer
 
 
 class Polygon:
-    def __init__(self, *points, wireframe: bool = False):
+    def __init__(self, *points) -> None:
         self.points = points
-        self.wireframe = wireframe
 
-    def rotate(self, theta: float):
+    def rotate(self, theta: float) -> None:
         for p in self.points:
             p.pos.rotate(theta)
 
-    def scale(self, scale: float):
+    def scale(self, scale: float) -> None:
         for p in self.points:
             p.pos.scale(scale)
 
-    def draw(self, outer: Buffer):
+    def draw(self, outer: Buffer, wireframe: bool = False) -> None:
         width, height = outer.width, outer.height
         buffer = Buffer(width, height)
 
         for i in range(len(self.points)):
             buffer.dda_raw(self.points[i-1], self.points[i])
 
-        if not self.wireframe:
+        if not wireframe:
             for j in range(height):
                 for i in range(width):
                     start_color = buffer.body[i + j * width]

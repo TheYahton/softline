@@ -1,8 +1,9 @@
 from math import sin, cos
 
 
+# TODO: self type hint for mypy (do not use deprecated typing module)
 class Vec2i:
-    def __init__(self, x: int, y: int):
+    def __init__(self, x: int, y: int) -> None:
         self.x = x
         self.y = y
 
@@ -11,7 +12,7 @@ class Vec2i:
 
 
 class Vec2f:
-    def __init__(self, x: float, y: float):
+    def __init__(self, x: float, y: float) -> None:
         self.x = x
         self.y = y
 
@@ -38,7 +39,7 @@ class Vec2f:
 
 
 class Vec3f:
-    def __init__(self, x: float, y: float, z: float):
+    def __init__(self, x: float, y: float, z: float) -> None:
         self.x = x
         self.y = y
         self.z = z

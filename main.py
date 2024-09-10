@@ -7,12 +7,17 @@ from model import Polygon
 from buffer import ScreenBuffer
 
 
+# TODO: optimize render
+# TODO: add 256 color support
 # TODO: вращение для Point3f через матрицы/кватернионы/углы Эйлера
 # TODO: исправить рендеринг Polygon на буфере: сделать размер буфера зависящим от размера треугольника
-# TODO: исправить рисование линий: линия (x, y) и линия (y, x) неидентичны, хотя должны быть таковыми
 # TODO: вращение и рендеринг куба
 # TODO: вращение и перемещение камеры
 # TODO (optional): шейдеры как в OpenGL
+# TODO: textures
+# TODO: use hardware acceleration (like OpenGL or Vulkan)
+# TODO: read polygons from file
+# TODO: write output to image with certain flag
 
 if __name__ == "__main__":
     buffer = ScreenBuffer()
