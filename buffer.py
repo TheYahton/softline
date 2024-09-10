@@ -3,7 +3,7 @@ from os import get_terminal_size
 from typing import Self, Optional, List, cast
 
 from color import Color, Colors
-from point import Point2i
+from point import Point2i, Point2f, transform
 
 
 class Buffer:
@@ -45,6 +45,10 @@ class Buffer:
             self.pixel(int(x), int(y), color)
             x += (x2 - x1) / L
             y += (y2 - y1) / L
+
+    def dda_raw(self, p1: Point2f, p2: Point2f):
+        self.dda(transform(p1, self.width, self.height),
+                 transform(p2, self.width, self.height))
 
 
 class ScreenBuffer(Buffer):

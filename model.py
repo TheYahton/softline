@@ -1,6 +1,6 @@
 from vec import Vec2i
 from color import Colors
-from point import Point2f, Point2i, transform
+from point import Point2f, Point2i
 from buffer import Buffer
 
 
@@ -17,15 +17,13 @@ class Polygon:
         for p in self.points:
             p.pos.scale(scale)
 
-    def get_transformed(self, width, height) -> list[Point2i]:
-        return [transform(p, width, height) for p in self.points]
-
     def draw(self, outer: Buffer):
         width, height = outer.width, outer.height
-        points = self.get_transformed(width, height)
         buffer = Buffer(width, height)
-        for i in range(len(points)):
-            buffer.dda(points[i-1], points[i])
+
+        for i in range(len(self.points)):
+            buffer.dda_raw(self.points[i-1], self.points[i])
+
         if not self.wireframe:
             for j in range(height):
                 for i in range(width):
