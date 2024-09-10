@@ -4,35 +4,28 @@ from point import Point2f, Point2i, transform
 from buffer import Buffer
 
 
-class Triangle:
-    def __init__(self, p1: Point2f, p2: Point2f, p3: Point2f, wireframe: bool = False):
-        self.p1 = p1
-        self.p2 = p2
-        self.p3 = p3
+class Polygon:
+    def __init__(self, *points, wireframe: bool = False):
+        self.points = points
         self.wireframe = wireframe
 
     def rotate(self, theta: float):
-        self.p1.pos.rotate(theta)
-        self.p2.pos.rotate(theta)
-        self.p3.pos.rotate(theta)
+        for p in self.points:
+            p.pos.rotate(theta)
 
     def scale(self, scale: float):
-        self.p1.pos.scale(scale)
-        self.p2.pos.scale(scale)
-        self.p3.pos.scale(scale)
+        for p in self.points:
+            p.pos.scale(scale)
 
-    def get_transformed(self, width, height) -> tuple[Point2i, Point2i, Point2i]:
-        return (transform(self.p1, width, height),
-                transform(self.p2, width, height),
-                transform(self.p3, width, height))
+    def get_transformed(self, width, height) -> list[Point2i]:
+        return [transform(p, width, height) for p in self.points]
 
     def draw(self, outer: Buffer):
         width, height = outer.width, outer.height
-        p1, p2, p3 = self.get_transformed(width, height)
+        points = self.get_transformed(width, height)
         buffer = Buffer(width, height)
-        buffer.dda(p1, p2)
-        buffer.dda(p2, p3)
-        buffer.dda(p3, p1)
+        for i in range(len(points)):
+            buffer.dda(points[i-1], points[i])
         if not self.wireframe:
             for j in range(height):
                 for i in range(width):
