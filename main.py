@@ -11,7 +11,6 @@ from buffer import ScreenBuffer
 # TODO: исправить рендеринг Triangle на буфере: сделать размер буфера зависящим от размера треугольника
 # TODO: исправить рисование линий: линия (x, y) и линия (y, x) неидентичны, хотя должны быть таковыми
 # TODO: вращение и рендеринг куба
-# TODO: новый стиль рендера: незаполненные полигоны
 # TODO: полигоны вместо треугольников (возможность рендерить любые многоугольники)
 # TODO: вращение и перемещение камеры
 # TODO (optional): шейдеры как в OpenGL
@@ -30,7 +29,7 @@ if __name__ == "__main__":
         pp2 = p2.project()
         pp3 = p3.project()
         pp4 = p4.project()
-        triangle1 = Triangle(pp1.clone(), pp2.clone(), pp3.clone())
+        triangle1 = Triangle(pp1.clone(), pp2.clone(), pp3.clone(), wireframe=True)
         triangle2 = Triangle(pp1.clone(), pp3.clone(), pp4.clone())
         triangle1.draw(buffer)
         triangle2.draw(buffer)

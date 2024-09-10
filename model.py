@@ -5,10 +5,11 @@ from buffer import Buffer
 
 
 class Triangle:
-    def __init__(self, p1: Point2f, p2: Point2f, p3: Point2f):
+    def __init__(self, p1: Point2f, p2: Point2f, p3: Point2f, wireframe: bool = False):
         self.p1 = p1
         self.p2 = p2
         self.p3 = p3
+        self.wireframe = wireframe
 
     def rotate(self, theta: float):
         self.p1.pos.rotate(theta)
@@ -32,17 +33,18 @@ class Triangle:
         buffer.dda(p1, p2)
         buffer.dda(p2, p3)
         buffer.dda(p3, p1)
-        for j in range(height):
-            for i in range(width):
-                start_color = buffer.body[i + j * width]
-                if start_color != Colors.TRANSPARENT:
-                    k = i + 1
-                    while k < width and (end_color := buffer.body[k + j * width]) is Colors.TRANSPARENT:
-                        k += 1
-                    if end_color != Colors.TRANSPARENT:
-                        p1 = Point2i(Vec2i(i, j), start_color)
-                        p2 = Point2i(Vec2i(k, j), end_color)
-                        buffer.dda(p1, p2)
+        if not self.wireframe:
+            for j in range(height):
+                for i in range(width):
+                    start_color = buffer.body[i + j * width]
+                    if start_color != Colors.TRANSPARENT:
+                        k = i + 1
+                        while k < width and (end_color := buffer.body[k + j * width]) is Colors.TRANSPARENT:
+                            k += 1
+                        if end_color != Colors.TRANSPARENT:
+                            p1 = Point2i(Vec2i(i, j), start_color)
+                            p2 = Point2i(Vec2i(k, j), end_color)
+                            buffer.dda(p1, p2)
 
         outer.blit(buffer)
 
