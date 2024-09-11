@@ -11,28 +11,34 @@ class Buffer:
         self.width = width
         self.height = height
 
-    def clear(self) -> None:
-        self.fill(Colors.TRANSPARENT)
-
     def fill(self, color: Color) -> None:
         self.body = [color] * self.width * self.height
 
-    def blit(self, other):  # TODO: self type hint for mypy
-        for j in range(other.height):
-            for i in range(other.width):
-                index = i + j * other.width
-                F = other.body[index]
-                A = F.a
-                B = self.body[index]
-                r = B.r * (1 - A) + F.r * A
-                b = B.b * (1 - A) + F.b * A
-                g = B.g * (1 - A) + F.g * A
-                self.body[index] = Color(r, g, b)
+    def clear(self) -> None:
+        self.fill(Colors.TRANSPARENT)
 
-    def pixel(self, x: int, y: int, color: Color) -> None:
+    def set_pixel(self, x: int, y: int, color: Color) -> None:
         if x < 0 or y < 0 or x >= self.width or y >= self.height:
             return
         self.body[x + y * self.width] = color
+
+    def get_pixel(self, x: int, y: int) -> Color | None:
+        if x < 0 or y < 0 or x >= self.width or y >= self.height:
+            return None
+        return self.body[x + y * self.width]
+
+    def blit(self, other):  # TODO: self type hint for mypy
+        for j in range(self.height):
+            for i in range(self.width):
+                F = other.get_pixel(i, j)
+                if F is None:
+                    continue
+                A = F.a
+                B = self.get_pixel(i, j)
+                r = B.r * (1 - A) + F.r * A
+                b = B.b * (1 - A) + F.b * A
+                g = B.g * (1 - A) + F.g * A
+                self.set_pixel(i, j, Color(r, g, b))
 
     def dda(self, p1: Point2i, p2: Point2i) -> None:
         x1, y1, x2, y2 = p1.pos.x, p1.pos.y, p2.pos.x, p2.pos.y
@@ -41,7 +47,7 @@ class Buffer:
         for i in range(L):
             percent = 1.0 - i / L
             color = p1.color.blend(p2.color, percent)
-            self.pixel(int(x), int(y), color)
+            self.set_pixel(int(x), int(y), color)
             x += (x2 - x1) / L
             y += (y2 - y1) / L
 
