@@ -57,9 +57,16 @@ class ScreenBuffer(Buffer):
 
     def print(self) -> None:
         stdout.write("\033[1;1H")  # move cursor to (1,1)
+
         output = []
+        prev_color = None
         for color in self.body:
-            r, g, b = color.rgb()
-            output.append(f"\x1b[38;2;{r};{g};{b}m█")
+            if color != prev_color:
+                prev = color
+                r, g, b = color.rgb()
+                output.append(f"\x1b[38;2;{r};{g};{b}m█")
+            else:
+                output.append("█")
+
         stdout.write("".join(output))
 
