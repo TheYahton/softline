@@ -1,3 +1,5 @@
+from copy import copy
+
 from color import Color, Colors
 from vec import Vec2i, Vec2f, Vec3f
 
@@ -14,7 +16,7 @@ class Point2f:
         self.color = color
 
     def clone(self):
-        return Point2f(self.pos.clone(), self.color.clone())
+        return Point2f(copy(self.pos), copy(self.color))
 
 
 class Point3f:

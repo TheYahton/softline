@@ -1,18 +1,19 @@
-from typing import Self
+from dataclasses import dataclass
 
 
 def clamp(vmin: int, vmax: int, value: int) -> int:
     return max(min(value, vmax), vmin)
 
 
+@dataclass
 class Color:
-    def __init__(self, r: float, g: float, b: float, a: float = 1.0):
-        self.r = r
-        self.g = g
-        self.b = b
-        self.a = a
+    r: float
+    g: float
+    b: float
+    a: float = 1.0
 
-    def blend(self, other: Self, ratio: float):
+    # TODO: type hint for mypy
+    def blend(self, other, ratio: float):
         r = self.r * ratio + other.r * (1 - ratio)
         g = self.g * ratio + other.g * (1 - ratio)
         b = self.b * ratio + other.b * (1 - ratio)
@@ -24,9 +25,6 @@ class Color:
         g = clamp(0, 255, int(self.a * self.g * 255))
         b = clamp(0, 255, int(self.a * self.b * 255))
         return r, g, b
-
-    def clone(self):
-        return Color(self.r, self.g, self.b, self.a)
 
 
 class Colors:

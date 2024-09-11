@@ -1,23 +1,19 @@
+from copy import copy
 from math import sin, cos
+from dataclasses import dataclass
 
 
 # TODO: self type hint for mypy (do not use deprecated typing module)
+@dataclass
 class Vec2i:
-    def __init__(self, x: int, y: int) -> None:
-        self.x = x
-        self.y = y
-
-    def as_tuple(self) -> tuple[int, int]:
-        return (self.x, self.y)
+    x: int
+    y: int
 
 
+@dataclass
 class Vec2f:
-    def __init__(self, x: float, y: float) -> None:
-        self.x = x
-        self.y = y
-
-    def clone(self):
-        return Vec2f(self.x, self.y)
+    x: float
+    y: float
 
     def scale(self, scale: float):
         self.x *= scale
@@ -29,19 +25,19 @@ class Vec2f:
         self.x, self.y = x, y
 
     def scaled(self, scale: float):
-        copy = self.clone()
+        copy = copy(self)
         copy.scale(scale)
         return copy
 
     def rotated(self, theta: float):
-        copy = self.clone()
+        copy = copy(self)
         copy.rotate(theta)
         return copy
 
 
+@dataclass
 class Vec3f:
-    def __init__(self, x: float, y: float, z: float) -> None:
-        self.x = x
-        self.y = y
-        self.z = z
+    x: float
+    y: float
+    z: float
 
